@@ -88,6 +88,7 @@ begin
 		datain => aux_npcpc,
 		dataout => aux_addressIM
 	);
+	instructionM <= aux_instruccion;
 	outSumador <= aux_npcpc;
 
 end Behavioral;
