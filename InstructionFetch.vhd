@@ -33,7 +33,8 @@ entity InstructionFetch is
     Port ( clk : in  STD_LOGIC;
            rst : in  STD_LOGIC;
            npc : in  STD_LOGIC_VECTOR (31 downto 0);
-           instructionM : out  STD_LOGIC_VECTOR (31 downto 0));
+           instructionM : out  STD_LOGIC_VECTOR (31 downto 0);
+			  outSumador: out std_logic_vector(31 downto 0));
 end InstructionFetch;
 
 architecture Behavioral of InstructionFetch is
@@ -74,7 +75,7 @@ begin
 		instruction => aux_instruccion
 	);
 	
-	npc: regis PORT MAP(
+	Inpc: regis PORT MAP(
 		clk => clk,
 		rst =>rst,
 		datain => npc,
@@ -87,6 +88,7 @@ begin
 		datain => aux_npcpc,
 		dataout => aux_addressIM
 	);
+	outSumador <= aux_npcpc;
 
 end Behavioral;
 
