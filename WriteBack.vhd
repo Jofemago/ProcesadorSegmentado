@@ -12,7 +12,7 @@ entity WriteBack is
            datatores : out  STD_LOGIC_VECTOR (31 downto 0));
 end WriteBack;
 
-architecture Behavioral of WriteBack is
+ architecture Behavioral of WriteBack is
 
 	COMPONENT muxDM
 	PORT(
