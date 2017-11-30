@@ -133,6 +133,8 @@ BEGIN
 		rs1 <= "000100";
 		rs2 <= "000101";
 		wait for 15 ns;
+		
+		wait;
 
 
       -- insert stimulus here 
