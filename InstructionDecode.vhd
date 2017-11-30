@@ -113,7 +113,7 @@ begin
 	);
 	
 	
-op2_crs2 <= aux_operando2;
+
 
 	Inst_SEU: SEU PORT MAP(
 		imm13 => imm13 ,
@@ -133,8 +133,7 @@ op2_crs2 <= aux_operando2;
 		cRD => aux_crd
 	);
 	
-crs1 <= 	aux_crs1;
-crd <= 	aux_crd;
+
 
 
 --multiplexor del call
@@ -162,6 +161,9 @@ crd <= 	aux_crd;
 	);
 	
 ncwp <= aux_ncwp;
+crs1 <= 	aux_crs1;
+crd <= 	aux_crd;
+op2_crs2 <= aux_operando2;
 
 end Behavioral;
 

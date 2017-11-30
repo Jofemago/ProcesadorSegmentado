@@ -28,7 +28,8 @@ begin
     process (rs1, rs2, rd, dtowrite, rst,RAM, we)
 		begin
 		if  rst = '1'  then
-		RAM <=( others => "00000000000000000000000000000000");
+		RAM <=( "00000000000000000000000000000000" ,
+				others => "00000000000000000000000000000000");
 			crs1 <= "00000000000000000000000000000000" ;
 		   crs2 <="00000000000000000000000000000000" ;
 		else 
@@ -36,7 +37,7 @@ begin
 		  crs2 <= RAM(conv_integer(rs2))  ;
 		  
 			if we = '1' then
-				if rd /= "00000" then
+				if rd /= "000000" then
 					RAM(conv_integer(rd)) <= DtoWrite;
 				end if;
 			end if;
