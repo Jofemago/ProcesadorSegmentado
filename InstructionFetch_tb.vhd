@@ -19,7 +19,8 @@ ARCHITECTURE behavior OF InstructionFetch_tb IS
          rst : IN  std_logic;
          npc : IN  std_logic_vector(31 downto 0);
          instructionM : OUT  std_logic_vector(31 downto 0);
-         outSumador : OUT  std_logic_vector(31 downto 0)
+         outSumador : OUT  std_logic_vector(31 downto 0);
+			 pcO: out std_logic_vector(31 downto 0)
         );
     END COMPONENT;
     
@@ -32,6 +33,7 @@ ARCHITECTURE behavior OF InstructionFetch_tb IS
  	--Outputs
    signal instructionM : std_logic_vector(31 downto 0);
    signal outSumador : std_logic_vector(31 downto 0);
+	signal pcO: std_logic_vector(31 downto 0);
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -44,7 +46,8 @@ BEGIN
           rst => rst,
           npc => npc,
           instructionM => instructionM,
-          outSumador => outSumador
+          outSumador => outSumador,
+			 pcO => pcO
         );
 
    -- Clock process definitions

@@ -34,7 +34,8 @@ entity InstructionFetch is
            rst : in  STD_LOGIC;
            npc : in  STD_LOGIC_VECTOR (31 downto 0);
            instructionM : out  STD_LOGIC_VECTOR (31 downto 0);
-			  outSumador: out std_logic_vector(31 downto 0));
+			  outSumador: out std_logic_vector(31 downto 0);
+			  pcO: out std_logic_vector(31 downto 0));
 end InstructionFetch;
 
 architecture Behavioral of InstructionFetch is
@@ -88,6 +89,7 @@ begin
 		datain => aux_npcpc,
 		dataout => aux_addressIM
 	);
+	pcO <= aux_addressIM;
 	instructionM <= aux_instruccion;
 	outSumador <= aux_npcpc;
 
