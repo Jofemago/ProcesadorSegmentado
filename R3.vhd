@@ -5,15 +5,15 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 
 entity R3 is
-    Port ( Rin : in  STD_LOGIC_VECTOR (98 downto 0);
+    Port ( Rin : in  STD_LOGIC_VECTOR (99 downto 0);
            --clk : in  STD_LOGIC;
            rst : in  STD_LOGIC;
-           Rout : out  STD_LOGIC_VECTOR (98 downto 0));
+           Rout : out  STD_LOGIC_VECTOR (99 downto 0));
 end R3;
 
 architecture Behavioral of R3 is
 
-signal registro: std_logic_vector(98 downto 0) := (others => '0');
+signal registro: std_logic_vector(99 downto 0) := (others => '0');
 
 begin
 

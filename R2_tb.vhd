@@ -15,19 +15,19 @@ ARCHITECTURE behavior OF R2_tb IS
  
     COMPONENT R2
     PORT(
-         Rin : IN  std_logic_vector(141 downto 0);
-         Rout : OUT  std_logic_vector(141 downto 0);
+         Rin : IN  std_logic_vector(142 downto 0);
+         Rout : OUT  std_logic_vector(142 downto 0);
          rst : IN  std_logic
         );
     END COMPONENT;
     
 
    --Inputs
-   signal Rin : std_logic_vector(141 downto 0) := (others => '0');
+   signal Rin : std_logic_vector(142 downto 0) := (others => '0');
    signal rst : std_logic := '0';
 
  	--Outputs
-   signal Rout : std_logic_vector(141 downto 0);
+   signal Rout : std_logic_vector(142 downto 0);
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
  
@@ -48,7 +48,7 @@ BEGIN
    stim_proc: process
    begin		
       
-      Rin <= "1111111110010101100000000010000000000000000001000010001001000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+      Rin <= "11111111100101011000000000010000000000000000001000010001001000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
 		rst <= '0';
 		wait for 20 ns;
 		rst <= '1';

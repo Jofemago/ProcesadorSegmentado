@@ -13,19 +13,19 @@ ARCHITECTURE behavior OF R4_tb IS
  
     COMPONENT R4
     PORT(
-         Rin : IN  std_logic_vector(97 downto 0);
+         Rin : IN  std_logic_vector(98 downto 0);
          rst : IN  std_logic;
-         Rout : OUT  std_logic_vector(97 downto 0)
+         Rout : OUT  std_logic_vector(98 downto 0)
         );
     END COMPONENT;
     
 
    --Inputs
-   signal Rin : std_logic_vector(97 downto 0) := (others => '0');
+   signal Rin : std_logic_vector(98 downto 0) := (others => '0');
    signal rst : std_logic := '0';
 
  	--Outputs
-   signal Rout : std_logic_vector(97 downto 0);
+   signal Rout : std_logic_vector(98 downto 0);
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
 
@@ -46,7 +46,7 @@ BEGIN
    stim_proc: process
    begin		
 
-      Rin <= "11010010010000100010000000000000000000000000000000000000000000000000000000000000000000000000000000";
+      Rin <= "110100100100001000100000000000000000000000000000000000000000000000000000000000000000000000000000000";
 		rst <= '0';
 		wait for 20 ns;
 		rst <= '1'; 
