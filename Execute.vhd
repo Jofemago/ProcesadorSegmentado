@@ -15,16 +15,16 @@ entity Execute is
     Port ( Op1 : in  STD_LOGIC_VECTOR (31 downto 0);
            Op2 : in  STD_LOGIC_VECTOR (31 downto 0);
            AluOP : in  STD_LOGIC_VECTOR (5 downto 0);
-           wrenmem : in  STD_LOGIC;
-			  outwrenmem : out  STD_LOGIC;
-           rfsource : in  STD_LOGIC_VECTOR (1 downto 0);
-			  outrfsource : out  STD_LOGIC_VECTOR (1 downto 0);
-           pc : in  STD_LOGIC_VECTOR (31 downto 0);
-			  outpc : out  STD_LOGIC_VECTOR (31 downto 0);
+           --wrenmem : in  STD_LOGIC;
+			  --outwrenmem : out  STD_LOGIC;
+           --rfsource : in  STD_LOGIC_VECTOR (1 downto 0);
+			  --outrfsource : out  STD_LOGIC_VECTOR (1 downto 0);
+           --pc : in  STD_LOGIC_VECTOR (31 downto 0);
+			  --outpc : out  STD_LOGIC_VECTOR (31 downto 0);
            nCWP : in  STD_LOGIC_VECTOR (4 downto 0);
            AluR : out  STD_LOGIC_VECTOR (31 downto 0);
-           cRd : in  STD_LOGIC_VECTOR (31 downto 0);
-			  outcRd : out  STD_LOGIC_VECTOR (31 downto 0);
+           --cRd : in  STD_LOGIC_VECTOR (31 downto 0);
+			  --outcRd : out  STD_LOGIC_VECTOR (31 downto 0);
            CWP : out  STD_LOGIC_VECTOR (4 downto 0);
            icc : out  STD_LOGIC_VECTOR (3 downto 0);
 			  clk : in std_logic;
@@ -99,10 +99,10 @@ begin
 	
 
 	alur <= sAluR;
-	outwrenmem <= wrenmem;
-	outpc <= pc;
-	outCrd <= Crd;
-	outrfsource <= rfsource;
+--	outwrenmem <= wrenmem;
+	--outpc <= pc;
+	--outCrd <= Crd;
+	--outrfsource <= rfsource;
 
 
 end Behavioral;

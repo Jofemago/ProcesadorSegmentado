@@ -6,15 +6,15 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity Memory is
     Port ( we : in  STD_LOGIC;
            --pc : inout  STD_LOGIC_VECTOR (31 downto 0);
-			  pc : in  STD_LOGIC_VECTOR (31 downto 0);
-			  pcO : out  STD_LOGIC_VECTOR (31 downto 0);
+--			  pc : in  STD_LOGIC_VECTOR (31 downto 0);
+--			  pcO : out  STD_LOGIC_VECTOR (31 downto 0);
            --address : inout  STD_LOGIC_VECTOR (31 downto 0);
 			  address : in  STD_LOGIC_VECTOR (31 downto 0);
-			  addressO : out  STD_LOGIC_VECTOR (31 downto 0);
+--			  addressO : out  STD_LOGIC_VECTOR (31 downto 0);
            crd : in  STD_LOGIC_VECTOR (31 downto 0);
            --rfsource : inout  STD_LOGIC_VECTOR (1 downto 0);
-			  rfsource : in  STD_LOGIC_VECTOR (1 downto 0);
-			  rfsourceO : out  STD_LOGIC_VECTOR (1 downto 0);
+--			  rfsource : in  STD_LOGIC_VECTOR (1 downto 0);
+--			  rfsourceO : out  STD_LOGIC_VECTOR (1 downto 0);
            Datatomem : out  STD_LOGIC_VECTOR (31 downto 0));
 end Memory;
 
@@ -39,9 +39,9 @@ begin
 		datatomem => Datatomem
 	);
 	
-	pcO<=pc;
-	addressO<=address;
-	rfsourceO<=rfsource;
+--	pcO<=pc;
+--	addressO<=address;
+--	rfsourceO<=rfsource;
 
 end Behavioral;
 
