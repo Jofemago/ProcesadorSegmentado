@@ -172,6 +172,12 @@ signal sDataToMem: std_logic_vector(31 downto 0);
 signal sR4: std_logic_vector(98 downto 0);
 
 
+--señales de prueba
+signal sRin: std_logic_vector(74 downto 0);
+signal sRin2: std_logic_vector(142 downto 0);
+signal sRin3: std_logic_vector(99 downto 0);
+signal sRin4: std_logic_vector(98 downto 0);
+
 begin
 
 	Inst_InstructionFetch: InstructionFetch PORT MAP(
@@ -197,16 +203,16 @@ begin
 		npcOUT => snpcout
 	);
 	
-	
+sRin <= sInstruction & sRFDEST & sRFSOURCE & sWRENMEM & sALUOP & sWRENREGIS & sPC;
 	Inst_R1: R1 PORT MAP(
-		Rin => sInstruction & sRFDEST & sRFSOURCE & sWRENMEM & sALUOP & sWRENREGIS & sPC,
+		Rin => sRin,
 		rst => rst,
 		Rout => sR1
 	);
 	
 
 	Inst_InstructionDecode: InstructionDecode PORT MAP(
-		rs1 => SR1(69 downto 57),
+		rs1 => SR1(61 downto 57),
 		rs2 => sR1(47 downto 43),
 		rd => sR1(72 downto 68),
 		op => sR1(74 downto 73),
@@ -224,9 +230,9 @@ begin
 		crd => sCRD
 	);
 	
-	
+sRin2 <= sOP1 & sOP2 & sR1(38 downto 33) & sR1(39) & sR1(41 downto 40) & sR1(31 downto 0) & sNCWP & sCRD & SR1(32);
 	Inst_R2: R2 PORT MAP(
-		Rin => sOP1 & sOP2 & sR1(38 downto 33) & sR1(39) & sR1(41 downto 40) & sR1(31 downto 0) & sNCWP & sCRD & SR1(32),
+		Rin => sRin2,
 		Rout => sR2,
 		rst => rst
 	);
@@ -243,9 +249,12 @@ begin
 		clk => clk,
 		rst => rst
 	);
-	
+
+
+sRin3 <= sR2(72) & sR2(69 downto 38) & sALUR & sR2(32 downto 1) & sR2(71 downto 70) & sR2(0);
+
 	Inst_R3: R3 PORT MAP(
-		Rin => sR2(72) & sR2(69 downto 38) & sALUR & sR2(32 downto 1) & sR2(71 downto 70) & sR2(0),
+		Rin => sRin3,
 		rst => rst,
 		Rout => sR3
 	);
@@ -257,8 +266,10 @@ begin
 		Datatomem => sDataToMem
 	);
 	
+sRin4 <= sR3(98 downto 67) & sDataToMem & sR3(66 downto 35) & sR3(2 downto 1) & sR3(0);
+
 	Inst_R4: R4 PORT MAP(
-		Rin => sR3(98 downto 67) & sDataToMem & sR3(66 downto 65) & sR3(2 downto 1) & sR3(0),
+		Rin => sRin4,
 		rst => rst,
 		Rout => sR4
 	);
