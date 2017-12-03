@@ -43,6 +43,7 @@ architecture Behavioral of ProcesadorSegmentado is
 	
 	COMPONENT R1
 	PORT(
+		clk : IN std_logic;
 		Rin : IN std_logic_vector(74 downto 0);
 		rst : IN std_logic;          
 		Rout : OUT std_logic_vector(74 downto 0)
@@ -103,6 +104,7 @@ architecture Behavioral of ProcesadorSegmentado is
 
 	COMPONENT R2
 	PORT(
+		clk : IN std_logic;
 		Rin : IN std_logic_vector(155 downto 0);
 		rst : IN std_logic;          
 		Rout : OUT std_logic_vector(155 downto 0)
@@ -112,6 +114,7 @@ architecture Behavioral of ProcesadorSegmentado is
 	
 	COMPONENT R3
 	PORT(
+		clk : IN std_logic;
 		Rin : IN std_logic_vector(112 downto 0);
 		rst : IN std_logic;          
 		Rout : OUT std_logic_vector(112 downto 0)
@@ -130,6 +133,7 @@ architecture Behavioral of ProcesadorSegmentado is
 
 	COMPONENT R4
 	PORT(
+		clk : IN std_logic;
 		Rin : IN std_logic_vector(111 downto 0);
 		rst : IN std_logic;          
 		Rout : OUT std_logic_vector(111 downto 0)
@@ -217,6 +221,7 @@ begin
 	
 sRin <= sInstruction & sRFDEST & sRFSOURCE & sWRENMEM & sALUOP & sWRENREGIS & sPC;
 	Inst_R1: R1 PORT MAP(
+		clk => clk,
 		Rin => sRin,
 		rst => rst,
 		Rout => sR1
@@ -251,6 +256,7 @@ sRin <= sInstruction & sRFDEST & sRFSOURCE & sWRENMEM & sALUOP & sWRENREGIS & sP
 	
 sRin2 <= sR1(42) & sRO7SAVE & sRDSAVE & sOP1 & sOP2 & sR1(38 downto 33) & sR1(39) & sR1(41 downto 40) & sR1(31 downto 0) & sNCWP & sCRD & SR1(32);
 	Inst_R2: R2 PORT MAP(
+		clk => clk,
 		Rin => sRin2,
 		Rout => sR2,
 		rst => rst
@@ -273,6 +279,7 @@ sRin2 <= sR1(42) & sRO7SAVE & sRDSAVE & sOP1 & sOP2 & sR1(38 downto 33) & sR1(39
 sRin3 <= sR2(155) & sR2(154 downto 149) & sR2(148 downto 143) & sR2(72) & sR2(69 downto 38) & sALUR & sR2(32 downto 1) & sR2(71 downto 70) & sR2(0);
 
 	Inst_R3: R3 PORT MAP(
+		clk => clk,
 		Rin => sRin3,
 		rst => rst,
 		Rout => sR3
@@ -288,6 +295,7 @@ sRin3 <= sR2(155) & sR2(154 downto 149) & sR2(148 downto 143) & sR2(72) & sR2(69
 sRin4 <= sR3(112) & sR3(111 downto 106) & sR3(105 downto 100) & sR3(98 downto 67) & sDataToMem & sR3(66 downto 35) & sR3(2 downto 1) & sR3(0);
 
 	Inst_R4: R4 PORT MAP(
+		clk => clk,
 		Rin => sRin4,
 		rst => rst,
 		Rout => sR4
