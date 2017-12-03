@@ -53,13 +53,15 @@ architecture Behavioral of ProcesadorSegmentado is
 
 	COMPONENT InstructionDecode
 	PORT(
+		rd6 : IN std_logic_vector(5 downto 0);
+		ro7 : IN std_logic_vector(5 downto 0);
+		rfdest : IN std_logic;
 		rs1 : IN std_logic_vector(4 downto 0);
 		rs2 : IN std_logic_vector(4 downto 0);
 		rd : IN std_logic_vector(4 downto 0);
 		op : IN std_logic_vector(1 downto 0);
 		op3 : IN std_logic_vector(5 downto 0);
 		cwp : IN std_logic_vector(4 downto 0);
-		rfdest : IN std_logic;
 		imm13 : IN std_logic_vector(12 downto 0);
 		i : IN std_logic;
 		we : IN std_logic;
@@ -68,9 +70,16 @@ architecture Behavioral of ProcesadorSegmentado is
 		ncwp : OUT std_logic_vector(4 downto 0);
 		op2_crs2 : OUT std_logic_vector(31 downto 0);
 		crs1 : OUT std_logic_vector(31 downto 0);
-		crd : OUT std_logic_vector(31 downto 0)
+		crd : OUT std_logic_vector(31 downto 0);
+		rdsave : OUT std_logic_vector(5 downto 0);
+		ro7save : OUT std_logic_vector(5 downto 0)
 		);
 	END COMPONENT;
+
+
+
+
+
 
 
 	COMPONENT Execute
@@ -94,18 +103,18 @@ architecture Behavioral of ProcesadorSegmentado is
 
 	COMPONENT R2
 	PORT(
-		Rin : IN std_logic_vector(142 downto 0);
+		Rin : IN std_logic_vector(155 downto 0);
 		rst : IN std_logic;          
-		Rout : OUT std_logic_vector(142 downto 0)
+		Rout : OUT std_logic_vector(155 downto 0)
 		);
 	END COMPONENT;
 	
 	
 	COMPONENT R3
 	PORT(
-		Rin : IN std_logic_vector(99 downto 0);
+		Rin : IN std_logic_vector(112 downto 0);
 		rst : IN std_logic;          
-		Rout : OUT std_logic_vector(99 downto 0)
+		Rout : OUT std_logic_vector(112 downto 0)
 		);
 	END COMPONENT;
 
@@ -121,9 +130,9 @@ architecture Behavioral of ProcesadorSegmentado is
 
 	COMPONENT R4
 	PORT(
-		Rin : IN std_logic_vector(98 downto 0);
+		Rin : IN std_logic_vector(111 downto 0);
 		rst : IN std_logic;          
-		Rout : OUT std_logic_vector(98 downto 0)
+		Rout : OUT std_logic_vector(111 downto 0)
 		);
 	END COMPONENT;
 
@@ -166,17 +175,20 @@ signal sNCWP: std_logic_vector(4 downto 0);
 signal sOP1: std_logic_vector(31 downto 0);
 signal sOP2: std_logic_vector(31 downto 0);
 signal sCRD: std_logic_vector(31 downto 0);
-signal sR2: std_logic_vector(142 downto 0);
-signal sR3: std_logic_vector(99 downto 0);
+signal sR2: std_logic_vector(155 downto 0);
+signal sR3: std_logic_vector(112 downto 0);
 signal sDataToMem: std_logic_vector(31 downto 0);
-signal sR4: std_logic_vector(98 downto 0);
+signal sR4: std_logic_vector(111 downto 0);
+signal sRDSAVE: std_logic_vector(5 downto 0);
+signal sRO7SAVE: std_logic_vector(5 downto 0);
+
 
 
 --señales de prueba
 signal sRin: std_logic_vector(74 downto 0);
-signal sRin2: std_logic_vector(142 downto 0);
-signal sRin3: std_logic_vector(99 downto 0);
-signal sRin4: std_logic_vector(98 downto 0);
+signal sRin2: std_logic_vector(155 downto 0);
+signal sRin3: std_logic_vector(112 downto 0);
+signal sRin4: std_logic_vector(111 downto 0);
 
 begin
 
@@ -211,14 +223,19 @@ sRin <= sInstruction & sRFDEST & sRFSOURCE & sWRENMEM & sALUOP & sWRENREGIS & sP
 	);
 	
 
+
+	
+	
 	Inst_InstructionDecode: InstructionDecode PORT MAP(
+		rd6 => sR4(104 downto 99),
+		ro7 => sR4(110 downto 105),
+		rfdest => sR4(111),
 		rs1 => SR1(61 downto 57),
 		rs2 => sR1(47 downto 43),
 		rd => sR1(72 downto 68),
 		op => sR1(74 downto 73),
 		op3 => sR1(67 downto 62),
 		cwp => sCWP,
-		rfdest => sR1(42),
 		imm13 => sR1(55 downto 43),
 		i => sR1(56),
 		we => sR1(32),
@@ -227,10 +244,12 @@ sRin <= sInstruction & sRFDEST & sRFSOURCE & sWRENMEM & sALUOP & sWRENREGIS & sP
 		ncwp => sNCWP,
 		op2_crs2 => sOP2,
 		crs1 => sOP1,
-		crd => sCRD
+		crd => sCRD,
+		rdsave => sRDSAVE,
+		ro7save => sRO7SAVE
 	);
 	
-sRin2 <= sOP1 & sOP2 & sR1(38 downto 33) & sR1(39) & sR1(41 downto 40) & sR1(31 downto 0) & sNCWP & sCRD & SR1(32);
+sRin2 <= sR1(42) & sRO7SAVE & sRDSAVE & sOP1 & sOP2 & sR1(38 downto 33) & sR1(39) & sR1(41 downto 40) & sR1(31 downto 0) & sNCWP & sCRD & SR1(32);
 	Inst_R2: R2 PORT MAP(
 		Rin => sRin2,
 		Rout => sR2,
@@ -251,7 +270,7 @@ sRin2 <= sOP1 & sOP2 & sR1(38 downto 33) & sR1(39) & sR1(41 downto 40) & sR1(31 
 	);
 
 
-sRin3 <= sR2(72) & sR2(69 downto 38) & sALUR & sR2(32 downto 1) & sR2(71 downto 70) & sR2(0);
+sRin3 <= sR2(155) & sR2(154 downto 149) & sR2(148 downto 143) & sR2(72) & sR2(69 downto 38) & sALUR & sR2(32 downto 1) & sR2(71 downto 70) & sR2(0);
 
 	Inst_R3: R3 PORT MAP(
 		Rin => sRin3,
@@ -266,7 +285,7 @@ sRin3 <= sR2(72) & sR2(69 downto 38) & sALUR & sR2(32 downto 1) & sR2(71 downto 
 		Datatomem => sDataToMem
 	);
 	
-sRin4 <= sR3(98 downto 67) & sDataToMem & sR3(66 downto 35) & sR3(2 downto 1) & sR3(0);
+sRin4 <= sR3(112) & sR3(111 downto 106) & sR3(105 downto 100) & sR3(98 downto 67) & sDataToMem & sR3(66 downto 35) & sR3(2 downto 1) & sR3(0);
 
 	Inst_R4: R4 PORT MAP(
 		Rin => sRin4,

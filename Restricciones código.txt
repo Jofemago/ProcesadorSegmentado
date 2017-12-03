@@ -1,1 +1,2 @@
-Para aritmeticológicas se trabaja normalmente
+Para aritmeticológicas se trabaja normalmente. No es necesario ningún nop
+

@@ -4,13 +4,16 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 
 entity InstructionDecode is
-    Port ( rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
+    Port ( 	rd6: in std_logic_vector(5 downto 0);
+				ro7: in std_logic_vector(5 downto 0);
+				rfdest: in std_logic;
+				rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
            rs2 : in  STD_LOGIC_VECTOR (4 downto 0);
            rd : in  STD_LOGIC_VECTOR (4 downto 0);
            op : in  STD_LOGIC_VECTOR (1 downto 0);
            op3 : in  STD_LOGIC_VECTOR (5 downto 0);
            cwp : in  STD_LOGIC_VECTOR (4 downto 0);
-           rfdest : in  STD_LOGIC;
+           --rfdest : in  STD_LOGIC;
            imm13 : in  STD_LOGIC_VECTOR (12 downto 0);
            i : in  STD_LOGIC;
            we : in  STD_LOGIC;
@@ -19,7 +22,10 @@ entity InstructionDecode is
            ncwp : out  STD_LOGIC_VECTOR (4 downto 0);
            op2_crs2 : out  STD_LOGIC_VECTOR (31 downto 0);
            crs1 : out  STD_LOGIC_VECTOR (31 downto 0);
-           crd : out  STD_LOGIC_VECTOR (31 downto 0));
+           crd : out  STD_LOGIC_VECTOR (31 downto 0);
+			  rdsave : out std_logic_vector(5 downto 0);
+			  ro7save: out std_logic_vector(5 downto 0)
+			  );
 end InstructionDecode;
 
 architecture Behavioral of InstructionDecode is
@@ -138,9 +144,9 @@ begin
 
 --multiplexor del call
 	Inst_muxCall: muxCall PORT MAP(
-		Rd => aux_rd ,
-		callrd => aux_ro7,
-		rfdest => rfdest ,
+		Rd => rd6,
+		callrd => ro7,
+		rfdest => rfdest,
 		NRD => aux_nrd
 	);
 	
@@ -164,6 +170,8 @@ ncwp <= aux_ncwp;
 crs1 <= 	aux_crs1;
 crd <= 	aux_crd;
 op2_crs2 <= aux_operando2;
+rdsave <= aux_rd;
+ro7save <= aux_ro7;
 
 end Behavioral;
 
