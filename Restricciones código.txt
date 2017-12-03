@@ -1,2 +1,3 @@
 Para aritmeticológicas se trabaja normalmente. No es necesario ningún nop
 
+No se puede colocar un registro destino si en la siguiente instrucción se va a utilizar como registro fuente
